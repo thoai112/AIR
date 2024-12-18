@@ -13,7 +13,7 @@ import metpy.calc as mpcalc
 from bresenham import bresenham
 
 
-city_fp = os.path.join(proj_dir, 'data/station.txt')
+city_fp = os.path.join(proj_dir, 'data/city.txt')
 altitude_fp = os.path.join(proj_dir, 'data/altitude.npy')
 
 
@@ -59,11 +59,11 @@ class Graph():
         nodes = OrderedDict()
         with open(city_fp, 'r') as f:
             for line in f:
-                idx, city, lon, lat= line.rstrip('\n').split(' ')
+                idx, city, lon, lat, alt= line.rstrip('\n').split(' ')
                 idx = int(idx)
-                lon, lat = float(lon), float(lat)
-                x, y = self._lonlat2xy(lon, lat, True)
-                altitude = self.altitude[y, x]
+                lon, lat, altitude = float(lon), float(lat), float(alt)
+                #x, y = self._lonlat2xy(lon, lat, True)
+                #altitude = self.altitude[y, x]
                 #altitude = 0
                 print(f'city {city}  altitude  {altitude} lon {lon} lat  {lat}')
                 nodes.update({idx: {'city': city, 'altitude': altitude, 'lon': lon, 'lat': lat}})
